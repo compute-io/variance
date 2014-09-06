@@ -25,7 +25,11 @@
   "keywords": [
     "compute.io",
     "compute",
-    "computation"
+    "computation",
+    "statistics",
+    "stats",
+    "variance",
+    "sample variance"
   ],
   "bugs": {
     "url": "https://github.com/compute-io/variance/issues"
