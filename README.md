@@ -16,15 +16,24 @@ For use in the browser, use [browserify](https://github.com/substack/node-browse
 
 ## Usage
 
-To use the module,
-
 ``` javascript
 var variance = require( 'compute-variance' );
+```
+
+### variance( arr[, accesor] )
+
+``` javascript
+var data = [ 2, 4, 5, 3, 4, 3, 1, 5, 6, 9 ];
+
+var sigma2 = variance( data );
+// returns 4
 ```
 
 ## Examples
 
 ``` javascript
+var variance = require( 'compute-variance' );
+
 var data = new Array( 1000 );
 
 for ( var i = 0; i < data.length; i++ ) {
@@ -45,7 +54,7 @@ $ node ./examples/index.js
 
 ### Unit
 
-Unit tests use the [Mocha](http://visionmedia.github.io/mocha) test framework with [Chai](http://chaijs.com) assertions. To run the tests, execute the following command in the top-level application directory:
+Unit tests use the [Mocha](http://mochajs.org) test framework with [Chai](http://chaijs.com) assertions. To run the tests, execute the following command in the top-level application directory:
 
 ``` bash
 $ make test
@@ -65,16 +74,14 @@ $ make test-cov
 Istanbul creates a `./reports/coverage` directory. To access an HTML version of the report,
 
 ``` bash
-$ open reports/coverage/lcov-report/index.html
+$ make view-cov
 ```
 
-
+---
 ## License
 
-[MIT license](http://opensource.org/licenses/MIT). 
+[MIT license](http://opensource.org/licenses/MIT).
 
-
----
 ## Copyright
 
 Copyright &copy; 2014. Athan Reines.

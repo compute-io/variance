@@ -10,7 +10,11 @@
     {
       "name": "Athan Reines",
       "email": "kgryte@gmail.com"
-    }
+    },
+		{
+			"name": "Philipp Burckhardt",
+			"email": "pburckhardt@outlook.com"
+		}
   ],
   "scripts": {
     "test": "./node_modules/.bin/mocha",
@@ -34,12 +38,16 @@
   "bugs": {
     "url": "https://github.com/compute-io/variance/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "validate.io-array": "^1.0.3"
+  },
   "devDependencies": {
-    "chai": "1.x.x",
-    "mocha": "1.x.x",
+    "chai": "2.x.x",
+    "mocha": "2.x.x",
     "coveralls": "^2.11.1",
-    "istanbul": "^0.3.0"
+    "istanbul": "^0.3.0",
+    "jshint": "2.x.x",
+    "jshint-stylish": "^1.0.0"
   },
   "licenses": [
     {
