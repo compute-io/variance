@@ -20,13 +20,39 @@ For use in the browser, use [browserify](https://github.com/substack/node-browse
 var variance = require( 'compute-variance' );
 ```
 
-### variance( arr[, accesor] )
+### variance( arr[, accessor] )
+
+Computes the sample variance of a numeric `array`.
 
 ``` javascript
 var data = [ 2, 4, 5, 3, 4, 3, 1, 5, 6, 9 ];
 
-var sigma2 = variance( data );
-// returns 4
+var sample_variance = variance( data );
+// returns 5.067
+```
+
+For non-numeric `arrays`, provide an accessor `function` for accessing `array` values
+
+``` javascript
+var data = [
+    {'x':2},
+    {'x':4},
+    {'x':5},
+    {'x':3},
+    {'x':4},
+    {'x':3},
+    {'x':1},
+    {'x':5},
+    {'x':6},
+    {'x':9}
+];
+
+function getValue( d ) {
+    return d.x;
+}
+
+var sample_variance = variance( data, getValue );
+// returns 5.067
 ```
 
 ## Examples
