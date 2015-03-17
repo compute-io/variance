@@ -78,6 +78,27 @@ describe( 'compute-variance', function tests() {
 		assert.strictEqual( variance( data ), expected );
 	});
 
+	it( 'should compute the sample variance using an accessor function', function test() {
+		var data, expected, actual;
+
+		data = [
+			{'x':2},
+			{'x':4},
+			{'x':5},
+			{'x':3},
+			{'x':8},
+			{'x':2}
+		];
+		expected = 5.2;
+		actual = variance( data, getValue );
+
+		function getValue( d ) {
+			return d.x;
+		}
+
+		assert.strictEqual( actual, expected );
+	});
+
 	it( 'should return 0 for a single element array', function test() {
 		var data, expected;
 

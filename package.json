@@ -7,10 +7,10 @@
     "email": "kgryte@gmail.com"
   },
   "contributors": [
-    {
-      "name": "Athan Reines",
-      "email": "kgryte@gmail.com"
-    },
+		{
+		  "name": "Athan Reines",
+		  "email": "kgryte@gmail.com"
+		},
 		{
 			"name": "Philipp Burckhardt",
 			"email": "pburckhardt@outlook.com"
