@@ -1,3 +1,5 @@
+/* global describe, it, require */
+'use strict';
 
 // MODULES //
 
@@ -17,7 +19,6 @@ var expect = chai.expect,
 // TESTS //
 
 describe( 'compute-variance', function tests() {
-	'use strict';
 
 	it( 'should export a function', function test() {
 		expect( variance ).to.be.a( 'function' );
@@ -44,6 +45,29 @@ describe( 'compute-variance', function tests() {
 			};
 		}
 	});
+
+	it( 'should throw an error if provided accessor is not a function', function test() {
+				var values = [
+					'5',
+					5,
+					[],
+					undefined,
+					null,
+					NaN,
+					true,
+					{}
+				];
+
+				for ( var i = 0; i < values.length; i++ ) {
+					expect( badValue( values[i] ) ).to.throw( TypeError );
+				}
+
+				function badValue( value ) {
+					return function() {
+						variance( [ 1, 2, 3 ], value );
+					};
+				}
+		});
 
 	it( 'should compute the sample variance', function test() {
 		var data, expected;
