@@ -2,7 +2,7 @@ Variance
 ===
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> Computes the sample variance over an array of values.
+> Computes the [sample variance](http://en.wikipedia.org/wiki/Variance) of an array.
 
 
 ## Installation
@@ -22,16 +22,16 @@ var variance = require( 'compute-variance' );
 
 ### variance( arr[, accessor] )
 
-Computes the sample variance of a numeric `array`.
+Computes the (unbiased) [sample variance](http://en.wikipedia.org/wiki/Variance) of an `array`. For numeric `arrays`,
 
 ``` javascript
 var data = [ 2, 4, 5, 3, 4, 3, 1, 5, 6, 9 ];
 
-var sample_variance = variance( data );
+var s2 = variance( data );
 // returns 5.067
 ```
 
-For non-numeric `arrays`, provide an accessor `function` for accessing `array` values
+For non-numeric `arrays`, provide an accessor `function` for accessing numeric `array` values
 
 ``` javascript
 var data = [
@@ -51,9 +51,13 @@ function getValue( d ) {
     return d.x;
 }
 
-var sample_variance = variance( data, getValue );
+var s2 = variance( data, getValue );
 // returns 5.067
 ```
+
+__Note__: if provided an empty `array`, the function returns `null`.
+
+
 
 ## Examples
 
@@ -61,7 +65,6 @@ var sample_variance = variance( data, getValue );
 var variance = require( 'compute-variance' );
 
 var data = new Array( 1000 );
-
 for ( var i = 0; i < data.length; i++ ) {
 	data[ i ] = Math.random() * 100;
 }

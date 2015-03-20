@@ -1,7 +1,7 @@
 {
   "name": "compute-variance",
   "version": "1.0.0",
-  "description": "Computes the sample variance over an array of values.",
+  "description": "Computes the sample variance of an array.",
   "author": {
     "name": "Athan Reines",
     "email": "kgryte@gmail.com"
@@ -32,8 +32,14 @@
     "computation",
     "statistics",
     "stats",
+    "mathematics",
+    "math",
     "variance",
-    "sample variance"
+    "sample variance",
+    "stdev",
+    "spread",
+    "array",
+    "numeric array"
   ],
   "bugs": {
     "url": "https://github.com/compute-io/variance/issues"
