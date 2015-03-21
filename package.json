@@ -1,7 +1,7 @@
 {
   "name": "compute-variance",
   "version": "1.0.0",
-  "description": "Computes the sample variance over an array of values.",
+  "description": "Computes the variance of an array.",
   "author": {
     "name": "Athan Reines",
     "email": "kgryte@gmail.com"
@@ -10,6 +10,10 @@
     {
       "name": "Athan Reines",
       "email": "kgryte@gmail.com"
+    },
+    {
+      "name": "Philipp Burckhardt",
+      "email": "pburckhardt@outlook.com"
     }
   ],
   "scripts": {
@@ -28,18 +32,32 @@
     "computation",
     "statistics",
     "stats",
+    "mathematics",
+    "math",
     "variance",
-    "sample variance"
+    "sample variance",
+    "stdev",
+    "spread",
+    "array",
+    "numeric array",
+    "population"
   ],
   "bugs": {
     "url": "https://github.com/compute-io/variance/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "validate.io-array": "^1.0.3",
+    "validate.io-boolean-primitive": "^1.0.0",
+    "validate.io-function": "^1.0.2",
+    "validate.io-object": "^1.0.3"
+  },
   "devDependencies": {
-    "chai": "1.x.x",
-    "mocha": "1.x.x",
+    "chai": "2.x.x",
+    "mocha": "2.x.x",
     "coveralls": "^2.11.1",
-    "istanbul": "^0.3.0"
+    "istanbul": "^0.3.0",
+    "jshint": "2.x.x",
+    "jshint-stylish": "^1.0.0"
   },
   "licenses": [
     {

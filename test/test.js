@@ -1,3 +1,5 @@
+/* global describe, it, require */
+'use strict';
 
 // MODULES //
 
@@ -17,7 +19,6 @@ var expect = chai.expect,
 // TESTS //
 
 describe( 'compute-variance', function tests() {
-	'use strict';
 
 	it( 'should export a function', function test() {
 		expect( variance ).to.be.a( 'function' );
@@ -25,15 +26,15 @@ describe( 'compute-variance', function tests() {
 
 	it( 'should throw an error if provided a non-array', function test() {
 		var values = [
-				'5',
-				5,
-				true,
-				undefined,
-				null,
-				NaN,
-				function(){},
-				{}
-			];
+			'5',
+			5,
+			true,
+			undefined,
+			null,
+			NaN,
+			function(){},
+			{}
+		];
 
 		for ( var i = 0; i < values.length; i++ ) {
 			expect( badValue( values[i] ) ).to.throw( TypeError );
@@ -45,11 +46,126 @@ describe( 'compute-variance', function tests() {
 		}
 	});
 
+	it( 'should throw an error if provided an options argument which is not an object', function test() {
+		var values = [
+			'5',
+			5,
+			true,
+			undefined,
+			null,
+			NaN,
+			function(){},
+			[]
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			expect( badValue( values[i] ) ).to.throw( TypeError );
+		}
+		function badValue( value ) {
+			return function() {
+				variance( [1,2,3], value );
+			};
+		}
+	});
+
+	it( 'should throw an error if provided an accessor which is not a function', function test() {
+		var values = [
+			'5',
+			5,
+			[],
+			undefined,
+			null,
+			NaN,
+			true,
+			{}
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			expect( badValue( values[i] ) ).to.throw( TypeError );
+		}
+
+		function badValue( value ) {
+			return function() {
+				variance( [ 1, 2, 3 ], { 'accessor': value } );
+			};
+		}
+	});
+
+	it( 'should throw an error if provided a bias option which is not a boolean primitive', function test() {
+		var values = [
+			'5',
+			5,
+			[],
+			new Boolean( false ),
+			undefined,
+			null,
+			NaN,
+			function(){},
+			{}
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			expect( badValue( values[i] ) ).to.throw( TypeError );
+		}
+		function badValue( value ) {
+			return function() {
+				variance( [1,2,3], {
+					'bias': value
+				});
+			};
+		}
+	});
+
 	it( 'should compute the sample variance', function test() {
 		var data, expected;
 
 		data = [ 2, 4, 5, 3, 8, 2 ];
 		expected = 5.2;
+
+		assert.strictEqual( variance( data ), expected );
+	});
+
+	it( 'should compute the (biased) sample variance', function test() {
+		var data, expected, actual;
+
+		data = [ 2, 4, 5, 3, 8, 2 ];
+		expected = 5.2 * (data.length-1) / data.length;
+
+		actual =  variance( data, {
+			'bias': true
+		});
+
+		assert.strictEqual( actual, expected );
+	});
+
+	it( 'should compute the sample variance using an accessor function', function test() {
+		var data, expected, actual;
+
+		data = [
+			{'x':2},
+			{'x':4},
+			{'x':5},
+			{'x':3},
+			{'x':8},
+			{'x':2}
+		];
+		expected = 5.2;
+		actual = variance( data, {
+			'accessor': getValue
+		});
+
+		function getValue( d ) {
+			return d.x;
+		}
+
+		assert.strictEqual( actual, expected );
+	});
+
+	it( 'should return `null` when provided an empty array', function test() {
+		var data, expected;
+
+		data = [];
+		expected = null;
 
 		assert.strictEqual( variance( data ), expected );
 	});

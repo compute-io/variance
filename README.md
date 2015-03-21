@@ -2,7 +2,7 @@ Variance
 ===
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> Computes the sample variance over an array of values.
+> Computes the [variance](http://en.wikipedia.org/wiki/Variance) of an array.
 
 
 ## Installation
@@ -16,17 +16,73 @@ For use in the browser, use [browserify](https://github.com/substack/node-browse
 
 ## Usage
 
-To use the module,
-
 ``` javascript
 var variance = require( 'compute-variance' );
 ```
 
+### variance( arr[, opts] )
+
+Computes the [variance](http://en.wikipedia.org/wiki/Variance) of an `array`. For numeric `arrays`,
+
+``` javascript
+var data = [ 2, 4, 5, 3, 4, 3, 1, 5, 6, 9 ];
+
+var s2 = variance( data );
+// returns 5.067
+```
+
+The function accepts two `options`:
+
+*	__accessor__: accessor `function` for accessing `array` values
+*	__bias__: `boolean` indicating whether to compute the population variance (biased sample variance) or the (unbiased) sample variance. Default: `false`; i.e., the unbiased sample variance.
+
+For non-numeric `arrays`, provide an accessor `function` for accessing numeric `array` values
+
+``` javascript
+var data = [
+    {'x':2},
+    {'x':4},
+    {'x':5},
+    {'x':3},
+    {'x':4},
+    {'x':3},
+    {'x':1},
+    {'x':5},
+    {'x':6},
+    {'x':9}
+];
+
+function getValue( d ) {
+    return d.x;
+}
+
+var s2 = variance( data, {
+	'accessor': getValue
+});
+// returns 5.067
+```
+
+By default, the function calculates the *unbiased* sample variance. To calculate the population variance (or a *biased* sample variance), set the `bias` option to `true`.
+
+``` javascript
+var data = [ 2, 4, 5, 3, 4, 3, 1, 5, 6, 9 ];
+
+var value = variance( data, {
+	'bias': true	
+});
+// returns 4.56
+```
+
+__Note__: if provided an empty `array`, the function returns `null`.
+
+
+
 ## Examples
 
 ``` javascript
-var data = new Array( 1000 );
+var variance = require( 'compute-variance' );
 
+var data = new Array( 1000 );
 for ( var i = 0; i < data.length; i++ ) {
 	data[ i ] = Math.random() * 100;
 }
@@ -45,7 +101,7 @@ $ node ./examples/index.js
 
 ### Unit
 
-Unit tests use the [Mocha](http://visionmedia.github.io/mocha) test framework with [Chai](http://chaijs.com) assertions. To run the tests, execute the following command in the top-level application directory:
+Unit tests use the [Mocha](http://mochajs.org) test framework with [Chai](http://chaijs.com) assertions. To run the tests, execute the following command in the top-level application directory:
 
 ``` bash
 $ make test
@@ -65,16 +121,14 @@ $ make test-cov
 Istanbul creates a `./reports/coverage` directory. To access an HTML version of the report,
 
 ``` bash
-$ open reports/coverage/lcov-report/index.html
+$ make view-cov
 ```
 
-
+---
 ## License
 
-[MIT license](http://opensource.org/licenses/MIT). 
+[MIT license](http://opensource.org/licenses/MIT).
 
-
----
 ## Copyright
 
 Copyright &copy; 2014. Athan Reines.
