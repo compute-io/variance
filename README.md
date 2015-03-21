@@ -2,7 +2,7 @@ Variance
 ===
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> Computes the [sample variance](http://en.wikipedia.org/wiki/Variance) of an array.
+> Computes the [variance](http://en.wikipedia.org/wiki/Variance) of an array.
 
 
 ## Installation
@@ -20,9 +20,9 @@ For use in the browser, use [browserify](https://github.com/substack/node-browse
 var variance = require( 'compute-variance' );
 ```
 
-### variance( arr[, accessor] )
+### variance( arr[, opts] )
 
-Computes the (unbiased) [sample variance](http://en.wikipedia.org/wiki/Variance) of an `array`. For numeric `arrays`,
+Computes the [variance](http://en.wikipedia.org/wiki/Variance) of an `array`. For numeric `arrays`,
 
 ``` javascript
 var data = [ 2, 4, 5, 3, 4, 3, 1, 5, 6, 9 ];
@@ -30,6 +30,11 @@ var data = [ 2, 4, 5, 3, 4, 3, 1, 5, 6, 9 ];
 var s2 = variance( data );
 // returns 5.067
 ```
+
+The function accepts two `options`:
+
+*	__accessor__: accessor `function` for accessing `array` values
+*	__bias__: `boolean` indicating whether to compute the population (biased sample variance) or the (unbiased) sample variance. Default: `false`; i.e., the unbiased sample variance.
 
 For non-numeric `arrays`, provide an accessor `function` for accessing numeric `array` values
 
@@ -51,8 +56,21 @@ function getValue( d ) {
     return d.x;
 }
 
-var s2 = variance( data, getValue );
+var s2 = variance( data, {
+	'accessor': getValue
+});
 // returns 5.067
+```
+
+By default, the function calculates the *unbiased* sample variance. To calculate the population variance (or a *biased* sample variance), set the `bias` option to `true`.
+
+``` javascript
+var data = [ 2, 4, 5, 3, 4, 3, 1, 5, 6, 9 ];
+
+var value = variance( data, {
+	'bias': true	
+});
+// returns 4.56
 ```
 
 __Note__: if provided an empty `array`, the function returns `null`.

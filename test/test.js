@@ -68,7 +68,7 @@ describe( 'compute-variance', function tests() {
 		}
 	});
 
-	it( 'should throw an error if provided accessor is not a function', function test() {
+	it( 'should throw an error if provided an accessor which is not a function', function test() {
 		var values = [
 			'5',
 			5,
@@ -91,11 +91,12 @@ describe( 'compute-variance', function tests() {
 		}
 	});
 
-	it( 'should throw an error if provided a bias option which is not a boolean', function test() {
+	it( 'should throw an error if provided a bias option which is not a boolean primitive', function test() {
 		var values = [
 			'5',
 			5,
 			[],
+			new Boolean( false ),
 			undefined,
 			null,
 			NaN,
@@ -125,12 +126,16 @@ describe( 'compute-variance', function tests() {
 	});
 
 	it( 'should compute the (biased) sample variance', function test() {
-		var data, expected;
+		var data, expected, actual;
 
 		data = [ 2, 4, 5, 3, 8, 2 ];
-		expected = 5.2 * ( data.length - 1 ) / ( data.length );
+		expected = 5.2 * (data.length-1) / data.length;
 
-		assert.strictEqual( variance( data, { 'bias': true } ), expected );
+		actual =  variance( data, {
+			'bias': true
+		});
+
+		assert.strictEqual( actual, expected );
 	});
 
 	it( 'should compute the sample variance using an accessor function', function test() {
@@ -145,7 +150,9 @@ describe( 'compute-variance', function tests() {
 			{'x':2}
 		];
 		expected = 5.2;
-		actual = variance( data, { 'accessor': getValue } );
+		actual = variance( data, {
+			'accessor': getValue
+		});
 
 		function getValue( d ) {
 			return d.x;
