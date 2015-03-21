@@ -34,7 +34,7 @@ var s2 = variance( data );
 The function accepts two `options`:
 
 *	__accessor__: accessor `function` for accessing `array` values
-*	__bias__: `boolean` indicating whether to compute the population (biased sample variance) or the (unbiased) sample variance. Default: `false`; i.e., the unbiased sample variance.
+*	__bias__: `boolean` indicating whether to compute the population variance (biased sample variance) or the (unbiased) sample variance. Default: `false`; i.e., the unbiased sample variance.
 
 For non-numeric `arrays`, provide an accessor `function` for accessing numeric `array` values
 
