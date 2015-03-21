@@ -7,14 +7,14 @@
     "email": "kgryte@gmail.com"
   },
   "contributors": [
-		{
-		  "name": "Athan Reines",
-		  "email": "kgryte@gmail.com"
-		},
-		{
-			"name": "Philipp Burckhardt",
-			"email": "pburckhardt@outlook.com"
-		}
+    {
+      "name": "Athan Reines",
+      "email": "kgryte@gmail.com"
+    },
+    {
+      "name": "Philipp Burckhardt",
+      "email": "pburckhardt@outlook.com"
+    }
   ],
   "scripts": {
     "test": "./node_modules/.bin/mocha",
@@ -45,7 +45,10 @@
     "url": "https://github.com/compute-io/variance/issues"
   },
   "dependencies": {
-    "validate.io-array": "^1.0.3"
+    "validate.io-array": "^1.0.3",
+    "validate.io-boolean-primitive": "^1.0.0",
+    "validate.io-function": "^1.0.2",
+    "validate.io-object": "^1.0.3"
   },
   "devDependencies": {
     "chai": "2.x.x",

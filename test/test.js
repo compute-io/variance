@@ -46,6 +46,28 @@ describe( 'compute-variance', function tests() {
 		}
 	});
 
+	it( 'should throw an error if provided an options argument which is not an object', function test() {
+		var values = [
+			'5',
+			5,
+			true,
+			undefined,
+			null,
+			NaN,
+			function(){},
+			[]
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			expect( badValue( values[i] ) ).to.throw( TypeError );
+		}
+		function badValue( value ) {
+			return function() {
+				variance( [1,2,3], value );
+			};
+		}
+	});
+
 	it( 'should throw an error if provided accessor is not a function', function test() {
 		var values = [
 			'5',
@@ -64,7 +86,31 @@ describe( 'compute-variance', function tests() {
 
 		function badValue( value ) {
 			return function() {
-				variance( [ 1, 2, 3 ], value );
+				variance( [ 1, 2, 3 ], { 'accessor': value } );
+			};
+		}
+	});
+
+	it( 'should throw an error if provided a bias option which is not a boolean', function test() {
+		var values = [
+			'5',
+			5,
+			[],
+			undefined,
+			null,
+			NaN,
+			function(){},
+			{}
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			expect( badValue( values[i] ) ).to.throw( TypeError );
+		}
+		function badValue( value ) {
+			return function() {
+				variance( [1,2,3], {
+					'bias': value
+				});
 			};
 		}
 	});
@@ -76,6 +122,15 @@ describe( 'compute-variance', function tests() {
 		expected = 5.2;
 
 		assert.strictEqual( variance( data ), expected );
+	});
+
+	it( 'should compute the (biased) sample variance', function test() {
+		var data, expected;
+
+		data = [ 2, 4, 5, 3, 8, 2 ];
+		expected = 5.2 * ( data.length - 1 ) / ( data.length );
+
+		assert.strictEqual( variance( data, { 'bias': true } ), expected );
 	});
 
 	it( 'should compute the sample variance using an accessor function', function test() {
@@ -90,7 +145,7 @@ describe( 'compute-variance', function tests() {
 			{'x':2}
 		];
 		expected = 5.2;
-		actual = variance( data, getValue );
+		actual = variance( data, { 'accessor': getValue } );
 
 		function getValue( d ) {
 			return d.x;
