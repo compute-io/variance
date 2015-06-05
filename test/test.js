@@ -3,6 +3,8 @@
 
 // MODULES //
 
+var matrix = require( 'dstructs-matrix' );
+
 var // Expectation library:
 	chai = require( 'chai' ),
 
@@ -24,9 +26,9 @@ describe( 'compute-variance', function tests() {
 		expect( variance ).to.be.a( 'function' );
 	});
 
-	it( 'should throw an error if provided a non-array', function test() {
+	it( 'should throw an error if the first argument is neither array-like or matrix-like', function test() {
 		var values = [
-			'5',
+		//	'5', // valid as is array-like (length)
 			5,
 			true,
 			undefined,
@@ -46,72 +48,64 @@ describe( 'compute-variance', function tests() {
 		}
 	});
 
-	it( 'should throw an error if provided an options argument which is not an object', function test() {
+	it( 'should throw an error if provided an unrecognized/unsupported data type option', function test() {
 		var values = [
-			'5',
-			5,
-			true,
-			undefined,
-			null,
-			NaN,
-			function(){},
-			[]
+			'beep',
+			'boop'
 		];
 
 		for ( var i = 0; i < values.length; i++ ) {
-			expect( badValue( values[i] ) ).to.throw( TypeError );
+			expect( badValue( values[i] ) ).to.throw( Error );
 		}
 		function badValue( value ) {
 			return function() {
-				variance( [1,2,3], value );
-			};
-		}
-	});
-
-	it( 'should throw an error if provided an accessor which is not a function', function test() {
-		var values = [
-			'5',
-			5,
-			[],
-			undefined,
-			null,
-			NaN,
-			true,
-			{}
-		];
-
-		for ( var i = 0; i < values.length; i++ ) {
-			expect( badValue( values[i] ) ).to.throw( TypeError );
-		}
-
-		function badValue( value ) {
-			return function() {
-				variance( [ 1, 2, 3 ], { 'accessor': value } );
-			};
-		}
-	});
-
-	it( 'should throw an error if provided a bias option which is not a boolean primitive', function test() {
-		var values = [
-			'5',
-			5,
-			[],
-			new Boolean( false ),
-			undefined,
-			null,
-			NaN,
-			function(){},
-			{}
-		];
-
-		for ( var i = 0; i < values.length; i++ ) {
-			expect( badValue( values[i] ) ).to.throw( TypeError );
-		}
-		function badValue( value ) {
-			return function() {
-				variance( [1,2,3], {
-					'bias': value
+				variance( matrix( [2,2] ), {
+					'dtype': value
 				});
+			};
+		}
+	});
+
+	it( 'should throw an error if provided a dim option which is not a positive integer', function test() {
+		var data = matrix( new Int32Array([1,2,3,4]), [2,2] );
+		var values = [
+			'5',
+			-5,
+			2.2,
+			true,
+			undefined,
+			null,
+			NaN,
+			[],
+			{}
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			expect( badValue( values[ i ] ) ).to.throw( Error );
+		}
+
+		function badValue( value ) {
+			return function() {
+				variance( data, {'dim': value} );
+			};
+		}
+	});
+
+	it( 'should throw an error if provided a dim option which exceeds matrix dimensions ( = 2 )', function test() {
+		var data = matrix( new Int32Array([1,2,3,4]), [2,2] );
+		var values = [
+			3,
+			4,
+			5
+		];
+
+		for ( var i = 0; i < values.length; i++ ) {
+			expect( badValue( values[ i ] ) ).to.throw( RangeError );
+		}
+
+		function badValue( value ) {
+			return function() {
+				variance( data, {'dim': value} );
 			};
 		}
 	});
@@ -120,6 +114,15 @@ describe( 'compute-variance', function tests() {
 		var data, expected;
 
 		data = [ 2, 4, 5, 3, 8, 2 ];
+		expected = 5.2;
+
+		assert.strictEqual( variance( data ), expected );
+	});
+
+	it( 'should compute the sample variance of a typed array', function test() {
+		var data, expected;
+
+		data = new Int8Array( [ 2, 4, 5, 3, 8, 2 ] );
 		expected = 5.2;
 
 		assert.strictEqual( variance( data ), expected );
@@ -170,11 +173,35 @@ describe( 'compute-variance', function tests() {
 		assert.strictEqual( variance( data ), expected );
 	});
 
-	it( 'should return 0 for a single element array', function test() {
+	it( 'should calculate the column products of a matrix', function test() {
+		var data, expected, results;
+
+		data = matrix( new Int32Array( [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ] ), [3,3] );
+		expected = matrix( new Float32Array( [ 1, 1, 1 ] ), [3,1] );
+
+		results = variance( data, {'dtype': 'float32'} );
+
+		assert.strictEqual( results.data.length, expected.data.length );
+		assert.deepEqual( results.data, expected.data );
+	});
+
+	it( 'should calculate the row products of a matrix', function test() {
+		var data, expected, results;
+
+		data = matrix( new Int32Array( [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ] ), [3,3] );
+		expected = matrix( new Float32Array( [ 9, 9, 9 ] ), [1, 3] );
+
+		results = variance( data, {'dim': 1, 'dtype': 'float32'} );
+
+		assert.strictEqual( results.data.length, expected.data.length );
+		assert.deepEqual( results.data, expected.data );
+	});
+
+	it( 'should compute the product for a vector (matrix with one column or row)', function test() {
 		var data, expected;
 
-		data = [ 2 ];
-		expected = 0;
+		expected = 5.2;
+		data = matrix( new Int32Array( [ 2, 4, 5, 3, 8, 2 ] ), [6,1] );
 
 		assert.strictEqual( variance( data ), expected );
 	});
