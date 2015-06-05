@@ -18,7 +18,7 @@ var expect = chai.expect,
 
 // TESTS //
 
-describe( 'accessor product', function tests() {
+describe( 'accessor variance', function tests() {
 
 	it( 'should export a function', function test() {
 		expect( variance ).to.be.a( 'function' );
