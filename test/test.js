@@ -173,7 +173,7 @@ describe( 'compute-variance', function tests() {
 		assert.strictEqual( variance( data ), expected );
 	});
 
-	it( 'should calculate the column products of a matrix', function test() {
+	it( 'should calculate the column variances of a matrix', function test() {
 		var data, expected, results;
 
 		data = matrix( new Int32Array( [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ] ), [3,3] );
@@ -185,7 +185,7 @@ describe( 'compute-variance', function tests() {
 		assert.deepEqual( results.data, expected.data );
 	});
 
-	it( 'should calculate the row products of a matrix', function test() {
+	it( 'should calculate the row variances of a matrix', function test() {
 		var data, expected, results;
 
 		data = matrix( new Int32Array( [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ] ), [3,3] );
@@ -197,7 +197,7 @@ describe( 'compute-variance', function tests() {
 		assert.deepEqual( results.data, expected.data );
 	});
 
-	it( 'should compute the product for a vector (matrix with one column or row)', function test() {
+	it( 'should compute the variance for a vector (matrix with one column or row)', function test() {
 		var data, expected;
 
 		expected = 5.2;
