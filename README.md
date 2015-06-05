@@ -7,7 +7,7 @@ Variance
 The unbiased [sample variance](http://en.wikipedia.org/wiki/Variance) is defined by
 
 <div class="equation" align="center" data-raw-text="s^2 = \frac{1}{N-1} \sum_{i=0}^{N-1} \left(x_i - \overline{x} \right)^2" data-equation="eq:variance">
-	<img src="" alt="Equation for the sample variance.">
+	<img src="https://cdn.rawgit.com/compute-io/variance/bdaaeaeb1718476b61f462cf3e5252d7b4c0c585/docs/img/eqn.svg" alt="Equation for the sample variance.">
 	<br>
 </div>
 
@@ -85,7 +85,7 @@ var value = variance( data, {
 The biased variance is calculated as follows:
 
 <div class="equation" align="center" data-raw-text="s^2 = \frac{1}{N} \sum_{i=0}^{N-1} \left(x_i - \overline{x} \right)^2" data-equation="eq:biased_variance">
-	<img src="" alt="Equation for the biased sample variance.">
+	<img src="https://cdn.rawgit.com/compute-io/variance/bdaaeaeb1718476b61f462cf3e5252d7b4c0c585/docs/img/eqn2.svg" alt="Equation for the biased sample variance.">
 	<br>
 </div>
 
