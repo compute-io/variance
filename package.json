@@ -49,7 +49,6 @@
   },
   "dependencies": {
     "compute-array-constructors": "^1.0.0",
-    "compute-dtype": "^1.0.0",
     "dstructs-matrix": "^1.0.0",
     "validate.io-array-like": "^1.0.0",
     "validate.io-boolean-primitive": "^1.0.0",
