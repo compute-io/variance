@@ -78,7 +78,7 @@ var s2 = variance( data, {
 // returns 5.067
 ```
 
-By default, the function calculates the *unbiased* sample [variance](http://en.wikipedia.org/wiki/Variance). To calculate the population variance (or a *biased* sample variance), set the `bias` option to `true`.
+By default, the function calculates the *unbiased* sample [variance](http://en.wikipedia.org/wiki/Variance). To calculate the population [variance](http://en.wikipedia.org/wiki/Variance) (or a *biased* sample [variance](http://en.wikipedia.org/wiki/Variance)), set the `bias` option to `true`.
 
 ``` javascript
 var data = [ 2, 4, 5, 3, 4, 3, 1, 5, 6, 9 ];
