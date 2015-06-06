@@ -29,7 +29,7 @@ describe( 'compute-variance', function tests() {
 
 	it( 'should throw an error if the first argument is neither array-like or matrix-like', function test() {
 		var values = [
-		//	'5', // valid as is array-like (length)
+			// '5', // valid as is array-like (length)
 			5,
 			true,
 			undefined,
@@ -68,8 +68,9 @@ describe( 'compute-variance', function tests() {
 	});
 
 	it( 'should throw an error if provided a dim option which is not a positive integer', function test() {
-		var data = matrix( new Int32Array([1,2,3,4]), [2,2] );
-		var values = [
+		var data, values;
+
+		values = [
 			'5',
 			-5,
 			2.2,
@@ -80,6 +81,8 @@ describe( 'compute-variance', function tests() {
 			[],
 			{}
 		];
+
+		data = matrix( new Int32Array([1,2,3,4]), [2,2] );
 
 		for ( var i = 0; i < values.length; i++ ) {
 			expect( badValue( values[ i ] ) ).to.throw( Error );
@@ -158,16 +161,16 @@ describe( 'compute-variance', function tests() {
 			{'x':8},
 			{'x':2}
 		];
-		expected = 5.2;
 		actual = variance( data, {
 			'accessor': getValue
 		});
+		expected = 5.2;
+
+		assert.strictEqual( actual, expected );
 
 		function getValue( d ) {
 			return d.x;
 		}
-
-		assert.strictEqual( actual, expected );
 	});
 
 	it( 'should return `null` when provided an empty array', function test() {
@@ -178,11 +181,12 @@ describe( 'compute-variance', function tests() {
 		var data, expected, s2;
 
 		data = matrix( new Int32Array( [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ] ), [3,3] );
-		expected = matrix( new Float32Array( [ 1, 1, 1 ] ), [3,1] );
+		expected = matrix( new Float64Array( [ 1, 1, 1 ] ), [3,1] );
 
-		s2 = variance( data, {'dtype': 'float32'} );
+		s2 = variance( data, {
+			'dim': 2
+		});
 
-		assert.strictEqual( s2.data.length, expected.data.length );
 		assert.deepEqual( s2.data, expected.data );
 	});
 
@@ -190,11 +194,26 @@ describe( 'compute-variance', function tests() {
 		var data, expected, s2;
 
 		data = matrix( new Int32Array( [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ] ), [3,3] );
-		expected = matrix( new Float32Array( [ 9, 9, 9 ] ), [1, 3] );
+		expected = matrix( new Float64Array( [ 9, 9, 9 ] ), [1, 3] );
 
-		s2 = variance( data, {'dim': 1, 'dtype': 'float32'} );
+		s2 = variance( data, {
+			'dim': 1
+		});
 
-		assert.strictEqual( s2.data.length, expected.data.length );
+		assert.deepEqual( s2.data, expected.data );
+	});
+
+	it( 'should calculate the variances of a matrix and output a matrix having a specified data type', function test() {
+		var data, expected, s2;
+
+		data = matrix( new Int32Array( [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ] ), [3,3] );
+		expected = matrix( new Int32Array( [ 1, 1, 1 ] ), [3,1] );
+
+		s2 = variance( data, {
+			'dtype': 'int32'
+		});
+
+		assert.strictEqual( s2.dtype, 'int32' );
 		assert.deepEqual( s2.data, expected.data );
 	});
 
