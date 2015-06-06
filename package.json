@@ -40,16 +40,24 @@
     "spread",
     "array",
     "numeric array",
-    "population"
+    "population",
+    "matrix",
+    "accessor"
   ],
   "bugs": {
     "url": "https://github.com/compute-io/variance/issues"
   },
   "dependencies": {
-    "validate.io-array": "^1.0.3",
+    "compute-array-constructors": "^1.0.0",
+    "compute-dtype": "^1.0.0",
+    "dstructs-matrix": "^1.0.0",
+    "validate.io-array-like": "^1.0.0",
     "validate.io-boolean-primitive": "^1.0.0",
     "validate.io-function": "^1.0.2",
-    "validate.io-object": "^1.0.3"
+    "validate.io-matrix-like": "^1.0.0",
+    "validate.io-object": "^1.0.4",
+    "validate.io-positive-integer": "^1.0.0",
+    "validate.io-string-primitive": "^1.0.0"
   },
   "devDependencies": {
     "chai": "2.x.x",
@@ -59,10 +67,5 @@
     "jshint": "2.x.x",
     "jshint-stylish": "^1.0.0"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/MIT"
-    }
-  ]
+  "license": "MIT"
 }
