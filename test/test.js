@@ -3,10 +3,11 @@
 
 // MODULES //
 
-var matrix = require( 'dstructs-matrix' );
-
 var // Expectation library:
 	chai = require( 'chai' ),
+
+	// Matrix data structure:
+	matrix = require( 'dstructs-matrix' ),
 
 	// Module to be tested:
 	variance = require( './../lib' );
@@ -83,29 +84,34 @@ describe( 'compute-variance', function tests() {
 		for ( var i = 0; i < values.length; i++ ) {
 			expect( badValue( values[ i ] ) ).to.throw( Error );
 		}
-
 		function badValue( value ) {
 			return function() {
-				variance( data, {'dim': value} );
+				variance( data, {
+					'dim': value
+				});
 			};
 		}
 	});
 
-	it( 'should throw an error if provided a dim option which exceeds matrix dimensions ( = 2 )', function test() {
-		var data = matrix( new Int32Array([1,2,3,4]), [2,2] );
-		var values = [
+	it( 'should throw an error if provided a dim option which exceeds the number of matrix dimensions (2)', function test() {
+		var data, values;
+
+		values = [
 			3,
 			4,
 			5
 		];
 
+		data = matrix( new Int32Array([1,2,3,4]), [2,2] );
+
 		for ( var i = 0; i < values.length; i++ ) {
 			expect( badValue( values[ i ] ) ).to.throw( RangeError );
 		}
-
 		function badValue( value ) {
 			return function() {
-				variance( data, {'dim': value} );
+				variance( data, {
+					'dim': value
+				});
 			};
 		}
 	});
@@ -165,36 +171,31 @@ describe( 'compute-variance', function tests() {
 	});
 
 	it( 'should return `null` when provided an empty array', function test() {
-		var data, expected;
-
-		data = [];
-		expected = null;
-
-		assert.strictEqual( variance( data ), expected );
+		assert.isNull( variance( [] ) );
 	});
 
 	it( 'should calculate the column variances of a matrix', function test() {
-		var data, expected, results;
+		var data, expected, s2;
 
 		data = matrix( new Int32Array( [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ] ), [3,3] );
 		expected = matrix( new Float32Array( [ 1, 1, 1 ] ), [3,1] );
 
-		results = variance( data, {'dtype': 'float32'} );
+		s2 = variance( data, {'dtype': 'float32'} );
 
-		assert.strictEqual( results.data.length, expected.data.length );
-		assert.deepEqual( results.data, expected.data );
+		assert.strictEqual( s2.data.length, expected.data.length );
+		assert.deepEqual( s2.data, expected.data );
 	});
 
 	it( 'should calculate the row variances of a matrix', function test() {
-		var data, expected, results;
+		var data, expected, s2;
 
 		data = matrix( new Int32Array( [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ] ), [3,3] );
 		expected = matrix( new Float32Array( [ 9, 9, 9 ] ), [1, 3] );
 
-		results = variance( data, {'dim': 1, 'dtype': 'float32'} );
+		s2 = variance( data, {'dim': 1, 'dtype': 'float32'} );
 
-		assert.strictEqual( results.data.length, expected.data.length );
-		assert.deepEqual( results.data, expected.data );
+		assert.strictEqual( s2.data.length, expected.data.length );
+		assert.deepEqual( s2.data, expected.data );
 	});
 
 	it( 'should compute the variance for a vector (matrix with one column or row)', function test() {
