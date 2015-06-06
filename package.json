@@ -40,7 +40,9 @@
     "spread",
     "array",
     "numeric array",
-    "population"
+    "population",
+    "matrix",
+    "accessor"
   ],
   "bugs": {
     "url": "https://github.com/compute-io/variance/issues"

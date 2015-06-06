@@ -41,6 +41,7 @@ for ( i = 0; i < data.length; i++ ) {
 	data[ i ] = Math.round( Math.random() * 10 + 1 );
 }
 s2 = variance( data );
+console.log( 'Typed arrays: %d\n', s2 );
 
 
 // ----
