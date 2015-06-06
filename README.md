@@ -7,7 +7,7 @@ Variance
 The [population variance](http://en.wikipedia.org/wiki/Variance) (biased sample variance) is defined as
 
 <div class="equation" align="center" data-raw-text="\sigma^2 = \frac{1}{N} \sum_{i=0}^{N-1} \left(x_i - \overline{x} \right)^2" data-equation="eq:population_variance">
-	<img src="https://cdn.rawgit.com/compute-io/variance/bdaaeaeb1718476b61f462cf3e5252d7b4c0c585/docs/img/eqn2.svg" alt="Equation for the population (biased sample) variance.">
+	<img src="https://cdn.rawgit.com/compute-io/variance/2b812a7ecb17a847cc39ed5730f13114636553d4/docs/img/eqn2.svg" alt="Equation for the population (biased sample) variance.">
 	<br>
 </div>
 
