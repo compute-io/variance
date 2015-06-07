@@ -1,4 +1,4 @@
-/* global describe, it, require */
+/* global describe, it, require, beforeEach */
 'use strict';
 
 // MODULES //
@@ -31,8 +31,10 @@ describe( 'matrix variance', function tests() {
 	for ( i = 0; i < data.length; i++ ) {
 		data[ i ] = i + 1;
 	}
-	mat = matrix( data, [5,5], 'int8' );
 
+	beforeEach( function before() {
+		mat = matrix( data, [5,5], 'int8' );
+	});
 
 	it( 'should export a function', function test() {
 		expect( variance ).to.be.a( 'function' );
@@ -52,6 +54,15 @@ describe( 'matrix variance', function tests() {
 		expected = '2.5;2.5;2.5;2.5;2.5';
 
 		assert.strictEqual( p.toString(), expected );
+
+		// Flip matrix up-down:
+		mat.strides[ 0 ] *= -1;
+		mat.offset = mat.length + mat.strides[ 0 ];
+
+		p = variance( out, mat );
+		expected = '2.5;2.5;2.5;2.5;2.5';
+
+		assert.strictEqual( p.toString(), expected, 'flipud' );
 	});
 
 	it( 'should compute the variance along matrix rows', function test() {
@@ -63,9 +74,18 @@ describe( 'matrix variance', function tests() {
 		expected = '62.5,62.5,62.5,62.5,62.5';
 
 		assert.strictEqual( p.toString(), expected );
+
+		// Flip matrix left-right:
+		mat.strides[ 1 ] *= -1;
+		mat.offset = mat.strides[ 0 ] - 1;
+
+		p = variance( out, mat );
+		expected = '2.5;2.5;2.5;2.5;2.5';
+
+		assert.strictEqual( p.toString(), expected, 'fliplr' );
 	});
 
-	it( 'should compute the (biased) variance along matrix rows', function test() {
+	it( 'should compute the population (biased sample) variance', function test() {
 		var out, p, expected;
 
 		out = matrix( [1,5], 'float64' );

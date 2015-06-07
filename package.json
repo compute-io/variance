@@ -49,11 +49,11 @@
   },
   "dependencies": {
     "compute-array-constructors": "^1.0.0",
-    "dstructs-matrix": "^1.0.0",
+    "dstructs-matrix": "^2.0.0",
     "validate.io-array-like": "^1.0.0",
     "validate.io-boolean-primitive": "^1.0.0",
     "validate.io-function": "^1.0.2",
-    "validate.io-matrix-like": "^1.0.0",
+    "validate.io-matrix-like": "^1.0.2",
     "validate.io-object": "^1.0.4",
     "validate.io-positive-integer": "^1.0.0",
     "validate.io-string-primitive": "^1.0.0"
