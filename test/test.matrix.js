@@ -79,8 +79,8 @@ describe( 'matrix variance', function tests() {
 		mat.strides[ 1 ] *= -1;
 		mat.offset = mat.strides[ 0 ] - 1;
 
-		p = variance( out, mat );
-		expected = '2.5;2.5;2.5;2.5;2.5';
+		p = variance( out, mat, false, 1 );
+		expected = '62.5,62.5,62.5,62.5,62.5';
 
 		assert.strictEqual( p.toString(), expected, 'fliplr' );
 	});
